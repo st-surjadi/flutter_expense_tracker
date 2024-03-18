@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_expense_tracker/data/expenses.dart';
+import 'package:flutter_expense_tracker/widget/create_expense.dart';
 import 'package:flutter_expense_tracker/widget/expenses_list/expenses_list.dart';
 import 'package:flutter_expense_tracker/model/expense.dart';
 
@@ -16,7 +17,10 @@ class _ExpensesState extends State<Expenses> {
   final List<Expense> _registeredExpenses = expenseList;
 
   void _openAddExpenseOverlay() {
-    
+    showModalBottomSheet(
+      context: context, 
+      builder: (ctx) => const CreateExpense()
+    );
   }
 
   @override
