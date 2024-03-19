@@ -16,10 +16,26 @@ class Expenses extends StatefulWidget {
 class _ExpensesState extends State<Expenses> {
   final List<Expense> _registeredExpenses = expenseList;
 
+  void _addExpense(Expense expense) {
+    setState(() {
+      _registeredExpenses.add(expense);
+    });
+  }
+
+  void _removeExpense(Expense expense) {
+    print(expense);
+    setState(() {
+      _registeredExpenses.remove(expense);
+    });
+  }
+
   void _openAddExpenseOverlay() {
     showModalBottomSheet(
+      isScrollControlled: true,
       context: context, 
-      builder: (ctx) => const CreateExpense()
+      builder: (ctx) => CreateExpense(
+        onAddExpense: _addExpense,
+      )
     );
   }
 
@@ -39,7 +55,10 @@ class _ExpensesState extends State<Expenses> {
         children: [
           const Text('The Chart'),
           Expanded(
-            child: ExpensesList(expensesList: _registeredExpenses)
+            child: ExpensesList(
+              expensesList: _registeredExpenses,
+              onRemoveExpense: _removeExpense,
+            )
           )
         ]
       )
